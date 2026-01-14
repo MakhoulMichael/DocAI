@@ -184,13 +184,24 @@ export function PresentationPage() {
 
   const handleDownload = () => {
     const pptx = new pptxgen();
-    const slideLayout = pptx.addSlide({ layout: 'TITLE' });
+    const slideLayout = pptx.addSlide();
     slideLayout.addText(title, { x: 0.5, y: 0.5, w: 9, h: 1, fontSize: 48, color: '000000' });
     
     slides.forEach(slide => {
-      const slideLayout = pptx.addSlide({ layout: 'TITLE' });
+      const slideLayout = pptx.addSlide();
       slideLayout.addText(slide.title, { x: 0.5, y: 0.5, w: 9, h: 1, fontSize: 48, color: '000000' });
-      slideLayout.addText(slide.content, { x: 0.5, y: 1.5, w: 9, h: 5, fontSize: 24, color: '000000' });
+      const contentText = Array.isArray(slide.content)
+        ? slide.content.join('\n')
+        : slide.content;
+
+      slideLayout.addText(contentText, {
+        x: 0.5,
+        y: 1.5,
+        w: 9,
+        h: 5,
+        fontSize: 24,
+        color: '000000',
+      });
     });
     
     pptx.writeFile({ fileName: `${title}.pptx` });
@@ -349,7 +360,9 @@ export function PresentationPage() {
                           Slide {slide.number}: {slide.title}
                         </h4>
                         <div
-                          ref={(el) => (slideRefs.current[index] = el)}
+                          ref={(el) => {
+                            slideRefs.current[index] = el;
+                          }}
                           contentEditable
                           suppressContentEditableWarning
                           onMouseUp={(e) => handleTextSelection(e, index)}

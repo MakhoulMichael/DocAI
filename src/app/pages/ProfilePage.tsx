@@ -68,9 +68,7 @@ export function ProfilePage() {
       slide.addText(doc.name, { x: 1, y: 1, fontSize: 24, bold: true });
       slide.addText(doc.content, { x: 1, y: 2, fontSize: 16 });
 
-      pptx.save('blob').then((blob) => {
-        saveAs(blob, `${doc.name}.pptx`);
-      });
+      pptx.writeFile({ fileName: `${doc.name}.pptx` });
     } else {
       toast.error('Unsupported document type');
     }
