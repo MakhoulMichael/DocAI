@@ -217,12 +217,18 @@ export function ProfilePage() {
                   ) : (
                     summaries.map((doc) => (
                       <div key={doc.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                        <div className="flex items-start gap-3">
-                          <FileText className="size-5 text-blue-600 mt-1" />
-                          <div className="flex-1">
-                            <h3 className="mb-1">{doc.name}</h3>
-                            <p className="text-sm text-gray-500">{formatDate(doc.createdAt)}</p>
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-start gap-3 flex-1">
+                            <FileText className="size-5 text-blue-600 mt-1" />
+                            <div className="flex-1">
+                              <h3 className="mb-1">{doc.name}</h3>
+                              <p className="text-sm text-gray-500">{formatDate(doc.createdAt)}</p>
+                            </div>
                           </div>
+                          <Button variant="outline" onClick={() => downloadDocument(doc)}>
+                            <Download className="size-4 mr-2" />
+                            Download
+                          </Button>
                         </div>
                       </div>
                     ))
@@ -238,12 +244,18 @@ export function ProfilePage() {
                   ) : (
                     presentations.map((doc) => (
                       <div key={doc.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                        <div className="flex items-start gap-3">
-                          <Presentation className="size-5 text-blue-600 mt-1" />
-                          <div className="flex-1">
-                            <h3 className="mb-1">{doc.name}</h3>
-                            <p className="text-sm text-gray-500">{formatDate(doc.createdAt)}</p>
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-start gap-3 flex-1">
+                            <Presentation className="size-5 text-blue-600 mt-1" />
+                            <div className="flex-1">
+                              <h3 className="mb-1">{doc.name}</h3>
+                              <p className="text-sm text-gray-500">{formatDate(doc.createdAt)}</p>
+                            </div>
                           </div>
+                          <Button variant="outline" onClick={() => downloadDocument(doc)}>
+                            <Download className="size-4 mr-2" />
+                            Download
+                          </Button>
                         </div>
                       </div>
                     ))

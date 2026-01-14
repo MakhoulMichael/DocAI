@@ -147,18 +147,6 @@ export function SummaryPage() {
     }, 2000);
   };
 
-  const handleDownload = () => {
-    const finalSummary = summaryRef.current?.innerText || summary;
-    const blob = new Blob([finalSummary], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${file?.name || 'summary'}_summary.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-    toast.success('Summary downloaded!');
-  };
-
   const handleDownloadDocx = () => {
     const finalSummary = summaryRef.current?.innerText || summary;
     const doc = new DocxDocument({
@@ -415,10 +403,6 @@ export function SummaryPage() {
                     )}
                     
                     <div className="flex gap-2">
-                      <Button onClick={handleDownload} className="w-full">
-                        <Download className="size-4 mr-2" />
-                        Download Summary
-                      </Button>
                       <Button onClick={handleDownloadDocx} className="w-full">
                         <Download className="size-4 mr-2" />
                         Download as DOCX
